@@ -43,12 +43,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hashedPassword = $user['password'];
 
         // Periksa kata sandi
+        session_start();
         if (checkPassword($password, $hashedPassword)) {
             // Kata sandi cocok, pengguna berhasil login
             header("Location: index.php");
             exit;
         } else {
-                    $_SESSION['login_error'] = 'Username atau Password salah.';
+                    $_SESSION['login_error'] = 'email atau Password salah.';
     // Jika kredensial salah, kembali ke halaman login dengan pesan error
     header('Location: login.php?error=1');
     exit();
