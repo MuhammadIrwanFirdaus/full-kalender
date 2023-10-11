@@ -56,7 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     } else {
         // Pengguna tidak ditemukan
-        echo "Pengguna tidak ditemukan.";
+        $_SESSION['login_error'] = 'Pengguna Tidak Ditemukan.';
+        header('Location: login.php?error=1');
+        exit();
     }
 }
 ?>
