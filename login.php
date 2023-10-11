@@ -13,8 +13,8 @@
     <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
 <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
-    <link rel="stylesheet" href="dist/css/sidebar.css">
-    <link rel="stylesheet" href="dist/css/Konten.css">
+    <!-- <link rel="stylesheet" href="dist/css/sidebar.css">
+    <link rel="stylesheet" href="dist/css/Konten.css"> -->
 
     <script src="assets/jquery.min.js"></script>
     <script src="assets/jquery-ui.min.js"></script>
@@ -25,11 +25,12 @@
     <h2 class="login-header">Login</h2>
 
     <?php
-    // Cek apakah ada notifikasi error dari proses login sebelumnya
-    session_start();
+   session_start();
+   // Cek apakah ada notifikasi error dari proses login sebelumnya
     if (isset($_SESSION['login_error'])) {
         echo '<p style="color: red;">' . $_SESSION['login_error'] . '</p>';
-        unset($_SESSION['login_error']); // Menghapus notifikasi error login jika ada
+        unset($_SESSION['login_error']);
+
     }
     ?>
 
