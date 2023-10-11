@@ -62,6 +62,7 @@
             <div class="form-group">
                 <button type="submit" class="btn">Buat Akun</button>
             </div>
+            <a href="login.php">Kembali</a>
         </form>
     </div>
     <script>
