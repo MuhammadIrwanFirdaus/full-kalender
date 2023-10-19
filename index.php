@@ -13,97 +13,17 @@
 <!-- Theme style -->
     <link rel="stylesheet" href="dist/css/adminlte.min.css">
 
+    <link rel="stylesheet" href="dist/css/kalender.css">
+
     <script src="assets/jquery.min.js"></script>
     <script src="assets/jquery-ui.min.js"></script>
     <script src="assets/moment.min.js"></script> 
     <script src="assets/fullcalendar.min.js"></script>
     <script src="plugin-fa/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <style>
-  /* Warna latar belakang untuk baris ganjil */
-table tr:nth-child(odd) {
-    background-color: #f2f2f2;
-}
-
-#calendar {
-    background-color: blue;
-    color:black; /* Atur warna teks agar kontras dengan latar belakang */
-}
-  /* Gaya hover pada baris tabel */
-table tr:hover {
-    background-color: #ddd;
-}
-        /* Memusatkan kontainer secara horizontal */
-        .container {
-            margin: 0 auto;
-            text-align: center; /* Memusatkan isi secara horizontal */
-            max-width: 800px; /* Tetapkan lebar maksimum sesuai kebutuhan */
-        }
-
-        /* Memusatkan kontainer secara vertikal (opsional) */
-        .container {
-            height: 100vh; /* Tetapkan tinggi tertentu atau gunakan metode lain untuk menentukan tinggi */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-#notification {
-        background-color: #f8f8f8;
-        border: 1px solid #ddd;
-        padding: 10px;
-        margin-top: 10px;
-        text-align: center;
-    }
-
-    /* Kalender styling */
-#calendar {
-    max-width: 800px;
-    margin: 0 auto;
-    z-index: 1;
-    margin-left: 10px;
-    position: relative;
-}
-
-#content {
-    flex: 1; /* Ini akan mengisi sisa ruang di sebelah kanan sidebar */
-    padding: 20px; /* Atur jarak dari tepi konten utama */
-}
-
-
-           /* Tambahkan gaya CSS untuk mengatur tampilan responsif */
-           @media (max-width: 768px) {
-            .wrapper {
-                padding-left: 0; /* Hapus padding kiri pada wrapper */
-                
-            }
-            .form-control {
-                max-width: 100%; /* Maksimum lebar input saat layar kecil */
-            }
-
-            .wrapper.toggled {
-                padding-left: 250px; /*Kembalikan padding kiri saat sidebar terbuka */
-            }
-
-            /* Tambahkan gaya CSS untuk mengatur tampilan kalender dan tabel pada layar kecil */
-            #calendar {
-                margin-left: -15px; /* Koreksi margin untuk kalender */
-            }
-
-            .card-title {
-                font-size: 1.25rem; /* Ukuran font judul card */
-            }   
-        }
-
-                    /* CSS untuk tabel responsif */
-            .responsive-table {
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-
-</style>
-
 </head>
+
+
 <body>
     <div class="wrapper">
                     <!-- Sidebar -->
@@ -131,8 +51,6 @@ table tr:hover {
             <br>
             <div class="container">
                 <div id="calendar"></div>
-                <!-- <div id="notification"></div> -->
-                
             </div>
 
             <?php
@@ -153,7 +71,66 @@ table tr:hover {
                 <div class="col-12">
                     <div class="card">
                     <div class="card-header">
-                        <br>
+                    <div>
+                <!-- Formulir untuk menambahkan data baru -->
+        <ul class="form-navbar ml-auto">
+        <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                <i class="fas fa-plus-square" id="showFormButton"></i>
+            </a>
+            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="center: inherit; center: 0px;">
+            <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Tambah Jadwal Baru</h3>
+                        <button class="close-button" onclick="closeFormNavbar()">
+                    <i class="fas fa-times"></i> <!-- Ikon X (close) -->
+                </button>
+                    </div>
+                    <!-- Formulir -->
+                    <div class="card-body">
+                        <form id="addEventForm">
+                            <div class="form-group">
+                                <label for="title">Acara</label>
+                                <input type="text" class="form-control" id="title" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tempat">Tempat</label>
+                                <input type="text" class="form-control" id="tempat" name="tempat" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dihadiri">Dihadiri</label>
+                                <input type="text" class="form-control" id="dihadiri" name="dihadiri" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="pakaian">Pakaian</label>
+                                <input type="text" class="form-control" id="pakaian" name="pakaian" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tanggal">Tanggal dan Waktu</label>
+                                <input type="datetime-local" class="form-control" id="tanggal" name="tanggal" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="keterangan">Keterangan</label>
+                                <input type="text" class="form-control" id="keterangan" name="keterangan" required>
+                            </div>
+
+                            <button type="button" class="btn btn-primary button-with-margin" id="addEventButton">Tambah Jadwal</button>
+                            <button type="button" class="btn btn-warning button-with-margin" id="editEventButton">Simpan Edit</button>
+                            <button type="button" class="btn btn-danger button-with-margin" id="deleteEventButton">Hapus Data</button>
+                            <button type="button" class="btn btn-secondary button-with-margin" id="cancelButton">Batal</button>
+
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+            </div>
+        </li>
+    </ul>
+    </div>
                         <h3 class="card-title">Jadwal</h3>
                     </div>
                     <!-- /.card-header -->
@@ -191,50 +168,6 @@ table tr:hover {
                 </div>
                 </div>
 
-                <!-- Formulir untuk menambahkan data baru -->
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Tambah Jadwal Baru</h3>
-                    </div>
-                    <!-- Formulir -->
-                    <div class="card-body">
-                        <form id="addEventForm">
-                            <div class="form-group">
-                                <label for="title">Acara</label>
-                                <input type="text" class="form-control" id="title" name="title" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="tempat">Tempat</label>
-                                <input type="text" class="form-control" id="tempat" name="tempat" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="dihadiri">Dihadiri</label>
-                                <input type="text" class="form-control" id="dihadiri" name="dihadiri" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="pakaian">Pakaian</label>
-                                <input type="text" class="form-control" id="pakaian" name="pakaian" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="tanggal">Tanggal dan Waktu</label>
-                                <input type="datetime-local" class="form-control" id="tanggal" name="tanggal" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="keterangan">Keterangan</label>
-                                <input type="text" class="form-control" id="keterangan" name="keterangan" required>
-                            </div>
-
-                            <button type="button" class="btn btn-primary" id="addEventButton">Tambah Jadwal</button>
-                            <button type="button" class="btn btn-warning" id="editEventButton">Simpan Edit</button>
-                            <button type="button" class="btn btn-danger" id="deleteEventButton">Hapus Data</button>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
         </div>
         </div>
 
@@ -261,60 +194,63 @@ table tr:hover {
 
                             eventClick: function(event) {
                             // Isi formulir dengan data acara yang akan diubah
-                            $("#title").val(event.title);
-                            $("#tempat").val(event.tempat);
-                            $("#dihadiri").val(event.dihadiri);
-                            $("#pakaian").val(event.pakaian);
-                            $("#keterangan").val(event.keterangan);
+                                $("#title").val(event.title);
+                                $("#tempat").val(event.tempat);
+                                $("#dihadiri").val(event.dihadiri);
+                                $("#pakaian").val(event.pakaian);
+                                $("#keterangan").val(event.keterangan);
 
-                            // Format ulang tanggal dan waktu sesuai dengan format input tanggal
-                            var start = moment(event.start).format("YYYY-MM-DD HH:mm");
-                            $("#tanggal").val(start);
+                                // Format ulang tanggal dan waktu sesuai dengan format input tanggal
+                                var start = moment(event.start).format("YYYY-MM-DD HH:mm");
+                                $("#tanggal").val(start);
 
-                            // Simpan ID acara yang akan diubah untuk referensi
-                            EventId = event.id;
-                        },
+                                // Simpan ID acara yang akan diubah untuk referensi
+                                EventId = event.id;
+
+                            },
                     
-                        eventDrop: function(event) {
-    var title = event.title;
-    var id = event.id;
-    var keterangan = event.keterangan; // Ambil keterangan yang sudah ada
+                            eventDrop: function(event) {
+                                var title = event.title;
+                                var id = event.id;
 
-    // Dapatkan tanggal dari tanggal yang telah dipilih dari kalender
-    var date = moment(event.start).format("YYYY-MM-DD");
-    
-    // Gunakan waktu yang telah ada
-    var time = moment(event.start).format("HH:mm");
+                                // Dapatkan tanggal dari tanggal yang telah dipilih dari kalender
+                                var date = moment(event.start).format("YYYY-MM-DD");
+                                
+                                // Gunakan waktu yang telah ada
+                                var time = moment(event.start).format("HH:mm");
 
-    // Gabungkan tanggal dan waktu menjadi satu string
-    var dateTime = date + " " + time;
+                                // Gabungkan tanggal dan waktu menjadi satu string
+                                var dateTime = date + " " + time;
 
-    // Gunakan moment.js untuk memformat tanggal dan waktu ke dalam format yang sesuai
-    var start = moment(dateTime, "YYYY-MM-DD HH:mm").format("Y-MM-DD HH:mm:ss");
-    var end = moment(dateTime, "YYYY-MM-DD HH:mm").format("Y-MM-DD HH:mm:ss");
+                                // Gunakan moment.js untuk memformat tanggal dan waktu ke dalam format yang sesuai
+                                var start = moment(dateTime, "YYYY-MM-DD HH:mm").format("Y-MM-DD HH:mm:ss");
+                                var end = moment(dateTime, "YYYY-MM-DD HH:mm").format("Y-MM-DD HH:mm:ss");
 
-    //perintah ajax lempar data untuk disimpan
-    $.ajax({
-        url : "ubah.php",
-        type : "POST",
-        data : {
-            title: title,
-            tempat: event.tempat, 
-            dihadiri: event.dihadiri,
-            pakaian: event.pakaian,
-            start: start,
-            end: end,
-            keterangan: event.keterangan, // Kirim keterangan yang sudah ada
-            id : id
-        },
-        success :function(){
-            //jika simpan sukses refresh kalender dan tampilkan pesan
-            calendar.fullCalendar('refetchEvents');
-            alert('ubah jadwal Sukses dan klik ok untuk refresh....!');
-            location.reload();
-        }
-    });
-},
+                                // Ambil keterangan dari event yang sedang di-drop
+                                var keterangan = event.keterangan;
+
+                                // Perintah ajax lempar data untuk disimpan
+                                $.ajax({
+                                    url : "ubah.php",
+                                    type : "POST",
+                                    data : {
+                                        title: title,
+                                        tempat: event.tempat, 
+                                        dihadiri: event.dihadiri,
+                                        pakaian: event.pakaian,
+                                        start: start,
+                                        end: end,
+                                        keterangan: keterangan, // Sertakan keterangan
+                                        id : id
+                                    },
+                                    success :function(){
+                                        // Jika simpan sukses, refresh kalender dan tampilkan pesan
+                                        calendar.fullCalendar('refetchEvents');
+                                        alert('Ubah jadwal sukses, klik OK untuk refresh....!');
+                                        location.reload();
+                                    }
+                                });
+                            },
 
                     });
                                         // Tangani klik tombol "Simpan Edit"
@@ -433,26 +369,29 @@ table tr:hover {
                                             });
                                         }
                                     });
-                                        // Mendapatkan tanggal hari ini dalam format YYYY-MM-DD
-                                        // var today = moment().format('YYYY-MM-DD');
+                                    $("#cancelButton").on("click", function () {
+                                        // Hapus isi semua elemen dalam formulir
+                                        $("#title").val("");
+                                        $("#tempat").val("");
+                                        $("#dihadiri").val("");
+                                        $("#pakaian").val("");
+                                        $("#tanggal").val("");
+                                        $("#keterangan").val("");
+                                    });
 
-                                        // // Menyaring acara-acara yang tanggalnya sama dengan hari ini
-                                        // var eventsToday = calendar.fullCalendar('clientEvents', function(event) {
-                                        //     return event.start.format('YYYY-MM-DD') === today;
-                                        // });
+                                            // JavaScript untuk mengontrol tampilan dropdown formulir
+        document.getElementById("showFormButton").addEventListener("click", function () {
+            document.getElementById("addEventForm").style.display = "block";
+        });
 
-                                        // // Jika ada acara hari ini, tampilkan notifikasi
-                                        // if (eventsToday.length > 0) {
-                                        //     var notificationText = 'Jadwal hari ini:';
-                                        //     eventsToday.forEach(function(event) {
-                                        //         notificationText += '<br>' + event.title + ' - ' + event.start.format('HH:mm');
-                                        //     });
-                                        //     $('#notification').html(notificationText);
-                                        // } else {
-                                        //     $('#notification').html('Tidak ada jadwal hari ini.');
-                                        // }
 
-                });//aaaaaaaaaaaaaaaaaaaaa
+        function closeFormNavbar() {
+    // Sembunyikan atau tutup form navbar
+    document.getElementById("addEventForm").style.display = "none";
+}
+
+
+                });//a
                 
                 
             </script>
